@@ -13,11 +13,11 @@ public class playerMotor : MonoBehaviour {
 	bool grounded = false;
 
 	//sped of player on ground
-	float speed = 15.0f;
+	float speed = 100.0f;
 	//speed of plyaer in air
-	float airSpeed = 15.0f;
+	float airSpeed = 10.0f;
 	//upward force on player when jumping
-	float jumpForce = 300f;
+	float jumpForce = 500f;
 
 	void Awake () {
 		//Find groundcheck and the spawn point and assign it to the variable
@@ -35,7 +35,12 @@ public class playerMotor : MonoBehaviour {
 		h = Input.GetAxis ("Horizontal");
 		//draw a line from the player to the groundCheck, if it hits a collider on the ground layer, sets to true
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("ground"));
-	
+
+		if (grounded) {
+			gameObject.rigidbody2D.drag = 10;
+		} else {
+			gameObject.rigidbody2D.drag = 0;
+		}
 
 
 	}
